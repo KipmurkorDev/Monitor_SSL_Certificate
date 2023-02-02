@@ -6,5 +6,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const sslRouter_1 = __importDefault(require("./router/sslRouter"));
 const app = (0, express_1.default)();
-app.get("/", sslRouter_1.default);
+app.use("/", sslRouter_1.default);
 app.listen(8080);
