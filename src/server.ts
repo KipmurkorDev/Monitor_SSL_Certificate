@@ -1,4 +1,4 @@
-import expresss,  { Express, Request, Response } from "express";
+import expresss,  { Express} from "express";
 import sslRouter from './router/sslRouter'
 const app:Express=expresss()
 

@@ -1,8 +1,9 @@
 import checkCertExpiration from 'check-cert-expiration';
+import express,{Request, Response, json } from 'express'
 import fs from "node:fs"
 import {exec} from 'child_process';
 
-export async function expirationCertDate (){
+export async function expirationCertDate (req:Request, res:Response){
   try {
     // checking the expiration date, and update if it is less than 2
     const { daysLeft, host, port } = await checkCertExpiration("teta.com");
@@ -17,9 +18,9 @@ export async function expirationCertDate (){
           exec("pm2 restart all", (err, stdout, stderr )=> {
             if (err) {
               console.error(`exec error: ${err}`);
-              throw new Error(`exec error: ${err}`);
+              return res.status(500).json({ error: err});
             }
-            console.log("Pm2 process was restarted");
+            return res.status(200).json("Pm2 successfull restarted");
           })
         });
       });
@@ -30,5 +31,9 @@ export async function expirationCertDate (){
     let errorMessage:string = ''
     if (error instanceof Error) {
       errorMessage = error.message;
-    }};
+    }
+    return res.status(500).json({ error: errorMessage });
+
+  };
+
   }
