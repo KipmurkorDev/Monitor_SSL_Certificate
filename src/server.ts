@@ -3,5 +3,5 @@ import sslRouter from './router/sslRouter'
 const app:Express=expresss()
 
 
-app.get("/", sslRouter)
+app.use("/", sslRouter)
 app.listen(8080)
